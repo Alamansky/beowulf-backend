@@ -1,0 +1,11 @@
+mixin UserData(locals)
+    - const boxStyles ={'background-color': '#f4f4f4', padding: '30px'}
+    if locals.userData
+        each value, key in locals.userData
+            tr
+                td.util--divider
+                    p(style=boxStyles).center #{key}:
+                td
+                    p(style=boxStyles).center #{value}
+            tr
+                td.spacer

@@ -1,0 +1,8 @@
+mixin Message(locals)
+    if locals && locals.customerName && !locals.admin
+        tr
+            td(colspan="2").center
+                p(style={'font-weight': 500}).text Dear #{locals.customerName},
+    tr
+        td(colspan="2").util--extraPadding.center
+            p.text.center #{locals.message}

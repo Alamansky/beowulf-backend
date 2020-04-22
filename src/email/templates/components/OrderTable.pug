@@ -1,0 +1,26 @@
+mixin OrderTable(locals)
+    - const ordertableStyles = {'border-collapse': 'collapse', margin: '0 auto'};
+    - const productImage = {height: '100px', width: '100px', 'background-color': '#e1e1e1'};
+    if locals
+        tr
+            td(colspan="2")
+                table(style=ordertableStyles).order-table
+                    tbody
+                        each item in locals.items
+                            tr.product
+                                td
+                                    img(style=productImage, src=item.image).product--image
+                                td.right.product--details
+                                    h2.u__marginB--7= item.title
+                                    p.u__marginB--7 Qty: #{item.quantity}
+                                    p.u__marginB--7 Price:  $#{item.price / 100}
+                    tfoot
+                        tr
+                            td(colspan="2")
+                                hr
+                        tr
+                            td
+                                b TOTAL:
+                            td(colspan="2")
+                                p.right
+                                    b $#{locals.total}

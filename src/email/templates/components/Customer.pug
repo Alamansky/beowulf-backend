@@ -1,0 +1,8 @@
+include ./Button.pug
+
+mixin Customer(locals)
+    tr
+        td(colspan="2").center
+            p(style={'font-weight': 500}).text #{`The site visitor ${locals.user ? 'is' : 'is not'} a current customer.`}
+    if locals && locals.user
+        +Button('See All Orders', 'http://localhost/orders')

@@ -1,0 +1,85 @@
+# import * from './generated/prisma.graphql'
+
+type SuccessMessage {
+  message: String
+}
+
+type GenericString {
+  someString: String
+}
+
+type Mutation {
+  createItem(
+    title: String
+    description: String
+    price: Int
+    image: String
+    largeImage: String
+  ): Item!
+  updateItem(id: ID!, title: String, description: String, price: Int): Item!
+  deleteItem(id: ID!): Item
+  deleteBlogPost(id: ID!): BlogPost
+  signup(email: String!, password: String!, name: String!): User!
+  signin(email: String!, password: String!): User!
+  signout: SuccessMessage
+  requestReset(email: String!): SuccessMessage
+  resetPassword(
+    resetToken: String!
+    password: String!
+    confirmPassword: String!
+  ): User
+  updatePermissions(id: ID!, permissions: [Permission!]!): User
+  addToCart(id: ID!, quantity: Int!): CartItem
+  removeFromCart(id: ID!): CartItem
+  createOrder(
+    token: String!
+    customerName: String!
+    customerEmail: String!
+    customerAddress: String!
+  ): Order!
+  updateOrder(id: ID!, fulfillment: Boolean!): Order!
+  createBlogPost(
+    title: String!
+    post: String!
+    image: String
+    largeImage: String
+    imageSizes: [String!]!
+  ): BlogPost!
+  updateBlogPost(id: ID!, title: String, post: String): BlogPost!
+  createMessage(email: String!, message: String!): Message!
+}
+
+type Query {
+  items(
+    where: ItemWhereInput
+    orderBy: ItemOrderByInput
+    skip: Int
+    first: Int
+    id_not: ID
+  ): [Item]!
+  item(where: ItemWhereUniqueInput!): Item
+  itemsConnection(where: ItemWhereInput): ItemConnection!
+  me: User
+  users: [User]!
+  order(id: ID!): Order
+  orders(orderBy: OrderOrderByInput): [Order!]
+  blogPosts(
+    where: ItemWhereInput
+    orderBy: ItemOrderByInput
+    skip: Int
+    first: Int
+    last: Int
+    after: ID
+  ): [BlogPost]!
+  blogPost(where: BlogPostWhereInput): BlogPost!
+  adminEmail: GenericString
+}
+
+type User {
+  id: ID!
+  name: String
+  email: String
+  permissions: [Permission!]!
+  cart: [CartItem!]!
+  orders: [OrderItem]
+}
