@@ -108,7 +108,7 @@ const Mutations = {
     let url =
       process.env.NODE_ENV == "dev"
         ? process.env.LOCALHOST
-        : process.env.FRONTEND_URL;
+        : process.env.FRONTEND_NOW_URL;
 
     /* const mailResponse = await transport.sendMail({
       from: "admin@beowulfbeardco.com",

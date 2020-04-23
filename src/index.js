@@ -34,18 +34,23 @@ server.express.use(async (req, res, next) => {
   next();
 });
 
+// cors options: https://expressjs.com/en/resources/middleware/cors.html
 server.start(
   {
     cors: {
       credentials: true,
       origin: [
         process.env.LOCALHOST,
+        process.env.LOCALHOST_PORT,
         process.env.FRONTEND_DO_URL,
         process.env.FRONTEND_NOW_URL,
         process.env.FRONTEND_PROD_IP,
         process.env.FRONTEND_PROD_IP_PORT,
       ],
       allRoutes: true,
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      preflightContinue: false,
+      optionsSuccessStatus: 204,
     },
     playground: "/playground",
     endpoint: "/graphql",
