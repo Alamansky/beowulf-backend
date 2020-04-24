@@ -13,7 +13,7 @@ mixin OrderTable(locals)
                                 td.right.product--details
                                     h2.u__marginB--7= item.title
                                     p.u__marginB--7 Qty: #{item.quantity}
-                                    p.u__marginB--7 Price:  $#{item.price / 100}
+                                    p.u__marginB--7 Price:  #{item.price}
                     tfoot
                         tr
                             td(colspan="2")
@@ -23,4 +23,4 @@ mixin OrderTable(locals)
                                 b TOTAL:
                             td(colspan="2")
                                 p.right
-                                    b $#{locals.total}
+                                    b #{locals.total}

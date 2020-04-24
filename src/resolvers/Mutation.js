@@ -334,7 +334,7 @@ const Mutations = {
         where: { id: args.id },
         data: { fulfilled: args.fulfillment },
       },
-      `{ id customerName customerAddress customerEmail items { id title description image largeImage price quantity } }`
+      `{ id customerName customerAddress customerEmail total items { id title description image largeImage price quantity } }`
     );
 
     console.log(order);
@@ -344,7 +344,7 @@ const Mutations = {
       0
     );
 
-    const locals = {
+    /*     const locals = {
       customerName: order.customerName,
       customerAddress: order.customerAddress,
       id: order.id,
@@ -362,7 +362,36 @@ const Mutations = {
         order.customerEmail,
         "Your order has shipped!",
         pugify(locals, "toCustomer")
-      );
+      ); */
+
+    const dev = process.env.NODE_ENV == "dev" ? true : false;
+
+    const locals = {
+      admin: false,
+      customerName: order.customerName,
+      message: customer__order__shipped(),
+      userData: {
+        "Order Page": `${
+          dev ? "http://localhost" : "https://beowulf.com"
+        }/order?id=${order.id}`,
+        "Order ID": order.id,
+        "Order Email": order.customerEmail,
+        "Shipping Address": order.customerAddress,
+      },
+      items: order.items.map((item) => {
+        const formattedPrice = formatMoney(item.price);
+        item.price = formattedPrice;
+        return item;
+      }),
+      total: formatMoney(order.total),
+    };
+
+    args.fulfillment &&
+      sendEmail({
+        recipient: order.customerEmail,
+        subject: "Your Order Has Shipped!",
+        template: pugify(locals, "customer__order__shipped"),
+      });
 
     return order;
   },
