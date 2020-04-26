@@ -9,7 +9,7 @@ module.exports = function sendJWT(ctx, user) {
   ctx.response.cookie("token", token, {
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24 * 7 * 52,
-    sameSite: process.env.NODE_ENV == "dev" ? "Lax" : "None",
+    sameSite: process.env.NODE_ENV == "dev" ? "Lax" : "Strict",
     secure: process.env.NODE_ENV == "dev" ? false : true,
   });
 };
