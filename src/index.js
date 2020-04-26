@@ -44,6 +44,7 @@ server.start(
         process.env.LOCALHOST_PORT,
         process.env.FRONTEND_DO_URL,
         process.env.FRONTEND_NOW_URL,
+	process.env.FRONTEND_NOW_TEST_URL,
         process.env.FRONTEND_PROD_IP,
         process.env.FRONTEND_PROD_IP_PORT,
       ],
